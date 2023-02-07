@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import { Image, Button } from "react-bootstrap";
 import Operatingtime from './Operatingtime';
 import Review from './Review';
+import { useSelector } from 'react-redux';
 
 function ViewRest() {
   const params = useParams()   // vere componentsilot share chyndathond usestate use chynila
@@ -14,23 +15,28 @@ function ViewRest() {
 
 
 
-  const [allrestaurant, setAllresataurant] = useState([])
+  // const [allrestaurant, setAllresataurant] = useState([])
 
   // function to api call for data inside json files
 
-  const getrestaurantdata = async () => {
-    await fetch('/restaurants.json')
-      .then(data => {
-        data.json().then(result => {
-          setAllresataurant(result.restaurants)
-        })
-      })
-  }
-  const restData = allrestaurant.find(item => item.id == params.id)
-  // console.log(restData);
+  // const getrestaurantdata = async () => {
+  //   await fetch('/restaurants.json')
+  //     .then(data => {
+  //       data.json().then(result => {
+  //         setAllresataurant(result.restaurants)
+  //       })
+  //     })
+  // }
 
-  useEffect(() => { getrestaurantdata() }, [])  // duplication avoid chyn vendi empty array use chyn
 
+  useEffect(() => {
+  //   //  getrestaurantdata()
+     }, [])  // duplication avoid chyn vendi empty array use chyn
+  const result = useSelector(state => state.restaurantReducer)
+  const { restaurantList } = result
+
+  const restData = restaurantList.find(item => item.id == params.id)
+  console.log(restData);
 
   return (
     <>
@@ -44,8 +50,8 @@ function ViewRest() {
             <h2>{restData.neighbourhood}</h2>
             <h3>Cusine type:{restData.cuisine_type}</h3>
             <h4>Address:{restData.address}</h4>
-            <Operatingtime timedata={restData.operating_hours}className="mt-8"></Operatingtime>
-            
+            <Operatingtime timedata={restData.operating_hours}></Operatingtime>
+
             <Review reviewData={restData.reviews}></Review>
           </Col>
         </Row>

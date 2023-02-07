@@ -67,3 +67,17 @@ createstore()-> method in REDUX  used to create store in js file
 2.apply the store in index.js using provider tag
   provider-> its a tag used to pass the store (from react-redux)in  index.js
 3.
+
+
+AXIOS
+......
+Module used to make http methods
+// npm i axios
+
+
+useDispatch- hook used to dispatch action in components-(from react redux)
+
+
+To access data from store to component
+......................................
+hook used-> useSelector
